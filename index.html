@@ -1,1072 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>EngiPay Wallet SDK Documentation - Web3 Payments & DeFi Integration</title>
-    <meta name="description" content="Comprehensive SDK documentation for StarkNet PayFi - mobile-first payments and DeFi super app. Includes Chipi Pay, Atomiq, Vesu, Trove, and Xverse integrations.">
-    <meta name="keywords" content="StarkNet, PayFi, SDK, DeFi, Web3, Payments, Cairo, Blockchain, Documentation">
-    <meta name="author" content="StarkNet PayFi Team">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="StarkNet PayFi SDK Documentation">
-    <meta property="og:description" content="Mobile-first Payments + DeFi super app SDK documentation with cross-chain support">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://your-domain.netlify.app/og-image.png">
-    <meta property="og:url" content="https://your-domain.netlify.app">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="EngiPay SDK Documentation">
-    <meta name="twitter:description" content="Comprehensive SDK docs for Web3 payments and DeFi integration">
-    <meta name="twitter:image" content="https://your-domain.netlify.app/twitter-image.png">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://your-domain.netlify.app">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- Scripts and Styles -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "headline": "EngiPay Wallet SDK Documentation",
-      "description": "Comprehensive SDK documentation for building Web3 payments and DeFi applications on StarkNet",
-      "author": {
-        "@type": "Organization",
-        "name": "Engineer Network Web 3 Team"
-      },
-      "datePublished": "2025-09-20",
-      "dateModified": "2025-09-20"
-    }
-    </script>
-    
+    <title>EngiPay Wallet SDK Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        .sidebar-scroll { 
-            scrollbar-width: thin; 
-            scrollbar-color: #4f46e5 #f1f5f9;
-        }
-        .sidebar-scroll::-webkit-scrollbar { 
-            width: 6px; 
-        }
-        .sidebar-scroll::-webkit-scrollbar-track { 
-            background: #f1f5f9; 
-        }
-        .sidebar-scroll::-webkit-scrollbar-thumb { 
-            background: #4f46e5; 
-            border-radius: 3px; 
-        }
-        .code-block {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        pre[class*="language-"] {
-            margin: 0;
-            border-radius: 0.5rem;
-        }
-        .nav-link {
-            transition: all 0.2s ease;
-        }
-        .nav-link:hover {
-            background-color: #e0e7ff;
-            transform: translateX(4px);
-        }
-        .nav-link.active {
-            background-color: #4f46e5;
-            color: white;
-        }
-        .section {
-            display: none;
-        }
-        .section.active {
-            display: block;
-        }
-        
-        /* Mobile responsive styles */
         .sidebar {
+            transition: transform 0.3s ease-in-out;
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
         }
-        .sidebar.open {
+        .sidebar.active {
             transform: translateX(0);
         }
-        .overlay {
-            display: none;
-        }
-        .overlay.show {
-            display: block;
-        }
-        
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
             .sidebar {
                 transform: translateX(0);
-            }
-            .mobile-menu-btn {
-                display: none;
-            }
-        }
-        
-        @media (max-width: 1023px) {
-            .sidebar {
-                position: fixed;
-                z-index: 30;
-                height: 100vh;
-            }
-            .main-content {
-                margin-left: 0 !important;
             }
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans">
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn fixed top-4 left-4 z-40 lg:hidden bg-white p-2 rounded-lg shadow-lg border border-gray-200" onclick="toggleSidebar()">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+<body class="bg-gray-100 font-sans">
+
+    <button id="menu-button" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-gray-800 text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
     </button>
-    
-    <!-- Overlay for mobile -->
-    <div class="overlay fixed inset-0 bg-black bg-opacity-50 z-20" onclick="closeSidebar()"></div>
-    
-    <div class="flex h-screen">
-        <!-- Sidebar -->
-        <div class="sidebar w-80 bg-white shadow-xl border-r border-gray-200 flex flex-col lg:relative">
-            <!-- Close button for mobile -->
-            <button class="lg:hidden absolute top-4 right-4 z-10 p-2 text-gray-500" onclick="closeSidebar()">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            
-            <div class="p-6 border-b border-gray-200">
-                <h1 class="text-2xl font-bold text-gray-900"></h1>
-                <p class="text-sm text-gray-600 mt-1"> EngiPay Wallet SDK Documentation</p>
-                <div class="mt-2">
-                    <a href="https://resolve-starknet.devpost.com/" target="_blank" class="inline-flex items-center text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
-                        🏆 Hackathon Project
-                    </a>
-                </div>
-            </div>
-            
-            <nav class="flex-1 overflow-y-auto sidebar-scroll p-4">
-                <ul class="space-y-2">
-                    <li><a href="#overview" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Overview</a></li>
-                    <li><a href="#resources" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Official Resources</a></li>
-                    <li><a href="#payments" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Payments Layer</a></li>
-                    <li><a href="#defi" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">DeFi Layer</a></li>
-                    <li><a href="#starknet" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">StarkNet Integration</a></li>
-                    <li><a href="#abis" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">ABIs & Contracts</a></li>
-                    <li><a href="#frontend" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Frontend Framework</a></li>
-                    <li><a href="#styling" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">UI Components</a></li>
-                    <li><a href="#backend" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Backend Integration</a></li>
-                    <li><a href="#database" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Data Management</a></li>
-                    <li><a href="#devtools" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Development Tools</a></li>
-                    <li><a href="#security" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Security</a></li>
-                    <li><a href="#getting-started" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700" onclick="handleNavClick(event)">Getting Started</a></li>
-                </ul>
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside id="sidebar" class="sidebar bg-gray-800 text-white w-64 p-6 space-y-4 md:sticky md:top-0 md:h-screen fixed top-0 left-0 h-full z-40">
+            <h1 class="text-2xl font-bold mb-6">EngiPay SDK</h1>
+            <nav class="space-y-2">
+                <a href="#welcome" class="block py-2 px-4 rounded-md hover:bg-gray-700">Welcome</a>
+                <a href="#core-features" class="block py-2 px-4 rounded-md hover:bg-gray-700">Core Features</a>
+                <a href="#integration-guides" class="block py-2 px-4 rounded-md hover:bg-gray-700">Integration Guides</a>
+                <a href="#sdk-reference" class="block py-2 px-4 rounded-md hover:bg-gray-700">SDK & API Reference</a>
             </nav>
-            
-            <div class="p-4 border-t border-gray-200">
-                <p class="text-xs text-gray-500">Last updated: Sept 2025</p>
-            </div>
-        </div>
+        </aside>
 
-        <!-- Main Content -->
-        <div class="main-content flex-1 overflow-y-auto lg:ml-0">
-            <div class="max-w-4xl mx-auto p-4 lg:p-8 pt-16 lg:pt-8">
-                
-                <!-- Overview Section -->
-                <section id="overview" class="section active">
-                    <header>
-                        <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">EngiPay Wallet SDK Documentation</h1>
-                    </header>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
-                        <p class="text-gray-700 mb-4">This documentation provides frontend developers with the necessary SDK references and implementation guides for building the EngiPay web application. The app combines seamless peer-to-peer payments, merchant tools, and integrated DeFi services.</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                            <div class="bg-blue-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-blue-900">Payments</h3>
-                                <p class="text-blue-700 text-sm">Instant wallet-to-wallet transactions with cross-chain support</p>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-green-900">DeFi</h3>
-                                <p class="text-green-700 text-sm">Lending, borrowing, and yield farming integration</p>
-                            </div>
-                            <div class="bg-purple-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-purple-900">Mobile-First</h3>
-                                <p class="text-purple-700 text-sm">Next.JS with modern UI components</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
-                            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Project Status</h4>
-                            <p class="text-yellow-800 text-sm">This project was developed for the <a href="https://resolve-starknet.devpost.com/" target="_blank" class="underline font-medium">StarkNet Hackathon</a>. View the complete project roadmap and tasks in our <a href="https://docs.google.com/spreadsheets/d/1iyv7mRAMZmJuge78rST_h3tK8mVl74gkijVeCuCa_Cs/edit?usp=sharing" target="_blank" class="underline font-medium">project spreadsheet</a>.</p>
-                        </div>
+        <main class="flex-1 p-8 md:p-12 space-y-12">
+            <section id="welcome" class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-3xl font-bold mb-4">Welcome to EngiPay Wallet</h2>
+                <p class="text-gray-700">
+                    The EngiPay Wallet is a non-custodial digital wallet built on StarkNet, offering secure and efficient transactions. Our SDKs and APIs are designed to provide developers with the tools needed to seamlessly integrate EngiPay's features into their applications.
+                </p>
+                <div class="mt-6 border-l-4 border-yellow-500 pl-4 text-gray-600">
+                    <p><strong>Note:</strong> This reference guide provides a comprehensive overview of the libraries and tools you can use to build on the StarkNet ecosystem, including specific SDKs for payments, DeFi, and wallet integration.</p>
+                </div>
+            </section>
+
+            <section id="core-features" class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-3xl font-bold mb-4">Core Features</h2>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">StarkNet L2 Scalability</h3>
+                        <p class="text-gray-600">
+                            Leverage StarkNet's Layer 2 scalability solutions for low-cost and high-speed transactions. Our core library, built on StarkNet.js, simplifies interaction with StarkNet contracts and accounts.
+                        </p>
                     </div>
-                </section>
-
-                <!-- Resources Section -->
-                <section id="resources" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Official Documentation & Resources</h2>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-blue-600">Core SDKs & APIs</h3>
-                            <div class="space-y-4">
-                                <div class="border-l-4 border-blue-500 pl-4">
-                                    <h4 class="font-semibold text-gray-900">Chipi Pay SDK</h4>
-                                    <p class="text-sm text-gray-600 mb-2">Next.js integration for instant payments</p>
-                                    <a href="https://docs.chipipay.com/sdk/nextjs/introduction" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 text-sm hover:text-blue-800">
-                                        📚 Documentation
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                                
-                                <div class="border-l-4 border-green-500 pl-4">
-                                    <h4 class="font-semibold text-gray-900">Atomiq Labs SDK</h4>
-                                    <p class="text-sm text-gray-600 mb-2">Cross-chain swap functionality</p>
-                                    <a href="https://www.npmjs.com/package/@atomiqlabs/sdk?activeTab=readme" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-green-600 text-sm hover:text-green-800">
-                                        📦 NPM Package
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                                
-                                <div class="border-l-4 border-purple-500 pl-4">
-                                    <h4 class="font-semibold text-gray-900">Xverse Wallet</h4>
-                                    <p class="text-sm text-gray-600 mb-2">Bitcoin integration via Sats Connect</p>
-                                    <a href="https://docs.xverse.app/sats-connect" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-purple-600 text-sm hover:text-purple-800">
-                                        🔗 Sats Connect Docs
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4 text-indigo-600">DeFi Protocols</h3>
-                            <div class="space-y-4">
-                                <div class="border-l-4 border-indigo-500 pl-4">
-                                    <h4 class="font-semibold text-gray-900">Vesu Protocol</h4>
-                                    <p class="text-sm text-gray-600 mb-2">Lending & borrowing architecture</p>
-                                    <a href="https://docs.vesu.xyz/dev-guides/architecture" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-indigo-600 text-sm hover:text-indigo-800">
-                                        🏗️ Architecture Guide
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                                
-                                <div class="border-l-4 border-yellow-500 pl-4">
-                                    <h4 class="font-semibold text-gray-900">Troves Finance</h4>
-                                    <p class="text-sm text-gray-600 mb-2">Yield aggregation platform</p>
-                                    <a href="https://docs.troves.fi/p" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-yellow-600 text-sm hover:text-yellow-800">
-                                        📈 Platform Docs
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Multi-chain Payments</h3>
+                        <p class="text-gray-600">
+                            The EngiPay Wallet supports multi-chain payments via integrations with leading protocols, allowing users to make transactions across different networks from a single interface.
+                        </p>
                     </div>
-                    
-                    <div class="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-900">📋 Project Management</h3>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <div class="bg-white p-4 rounded-lg border border-blue-200">
-                                <h4 class="font-semibold text-gray-900 mb-2">Task Management</h4>
-                                <p class="text-gray-600 text-sm mb-3">Complete project roadmap, milestones, and development tasks</p>
-                                <a href="https://docs.google.com/spreadsheets/d/1iyv7mRAMZmJuge78rST_h3tK8mVl74gkijVeCuCa_Cs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                                    📊 View Spreadsheet
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                            
-                            <div class="bg-white p-4 rounded-lg border border-blue-200">
-                                <h4 class="font-semibold text-gray-900 mb-2">Hackathon Submission</h4>
-                                <p class="text-gray-600 text-sm mb-3">Official project submission for StarkNet Resolve Hackathon</p>
-                                <a href="https://resolve-starknet.devpost.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                                    🏆 View Submission
-                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">DeFi & Trading</h3>
+                        <p class="text-gray-600">
+                            Connect to various DeFi protocols for yield farming, staking, and asset swapping. Our SDKs simplify the process of aggregating liquidity and interacting with complex DeFi contracts.
+                        </p>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Payments Section -->
-                <section id="payments" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Payments Layer</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Chipi Pay SDK</h3>
-                            <p class="text-gray-600 mb-4">Enables instant wallet-to-wallet transactions</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Installation
-npm install @chipi/pay-sdk
-
-// Basic Setup
-import { ChipiPaySDK } from '@chipi/pay-sdk';
-
-const chipiPay = new ChipiPaySDK({
-  apiKey: 'your-api-key',
-  network: 'mainnet', // or 'testnet'
-  environment: 'production'
-});
-
-// Send Payment
-const sendPayment = async (recipientAddress, amount, token) => {
-  try {
-    const transaction = await chipiPay.sendPayment({
-      to: recipientAddress,
-      amount: amount,
-      token: token,
-      memo: 'Payment via StarkNet PayFi'
-    });
-    return transaction;
-};
-
-// Get user positions
-const getUserPositions = async (userAddress) => {
-  return await troveYield.getUserPositions(userAddress);
-};</code></pre>
-                            </div>
-                        </div>
+            <section id="integration-guides" class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-3xl font-bold mb-4">Integration Guides</h2>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Integrating Basic Payments</h3>
+                        <p class="text-gray-600">
+                            Learn how to set up the EngiPay Wallet for simple token transfers and payment requests. This guide covers connecting the wallet, creating transactions, and handling transaction status.
+                        </p>
+                        <a href="#" class="text-indigo-500 hover:text-indigo-700 font-medium mt-2 inline-block">View Guide →</a>
                     </div>
-                </section>
-
-                <!-- StarkNet Section -->
-                <section id="starknet" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">StarkNet Integration</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold mb-4">StarkNet.js</h3>
-                        <p class="text-gray-600 mb-4">Core blockchain interactions</p>
-                        
-                        <div class="code-block">
-                            <pre><code class="language-javascript">// Installation
-npm install starknet
-
-// Setup
-import { Account, Contract, Provider, constants } from 'starknet';
-
-const provider = new Provider({
-  sequencer: { network: constants.NetworkName.SN_MAIN }
-});
-
-// Account setup
-const account = new Account(provider, accountAddress, privateKey);
-
-// Smart Contract Interaction with ABI
-const tokenContract = new Contract(erc20ABI, tokenContractAddress, provider);
-const payfiContract = new Contract(starknetPayFiABI, payfiContractAddress, provider);
-
-// Read contract state using ABI
-const getBalance = async (userAddress) => {
-  const balance = await tokenContract.balanceOf(userAddress);
-  return balance;
-};
-
-// Write to contract using ABI
-const sendPayment = async (recipient, amount, tokenAddress, memo) => {
-  const contractWithAccount = payfiContract.connect(account);
-  
-  const transaction = await contractWithAccount.send_payment(
-    recipient, 
-    amount, 
-    tokenAddress, 
-    memo
-  );
-  
-  return transaction;
-};
-
-// Listen to events using ABI
-const listenToPaymentEvents = () => {
-  payfiContract.on('PaymentSent', (from, to, amount, paymentId, event) => {
-    console.log('Payment sent:', {
-      from,
-      to, 
-      amount: amount.toString(),
-      paymentId,
-      transactionHash: event.transactionHash
-    });
-  });
-};</code></pre>
-                        </div>
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Connecting to Your DApp</h3>
+                        <p class="text-gray-600">
+                            Use the EngiPay Wallet as the primary authentication and signing method for your decentralized application. The guide covers `starknet.js` and `wagmi` library usage for account abstraction.
+                        </p>
+                        <a href="#" class="text-orange-500 hover:text-orange-700 font-medium mt-2 inline-block">View Guide →</a>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- ABIs Section -->
-                <section id="abis" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">ABIs & Smart Contracts</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Contract ABIs</h3>
-                            <p class="text-gray-600 mb-4">Application Binary Interfaces for smart contract interaction</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// ERC20 Token Contract ABI Example
-const erc20ABI = [
-  {
-    "name": "balanceOf",
-    "type": "function", 
-    "inputs": [{"name": "account", "type": "felt"}],
-    "outputs": [{"name": "balance", "type": "Uint256"}],
-    "stateMutability": "view"
-  },
-  {
-    "name": "transfer",
-    "type": "function",
-    "inputs": [
-      {"name": "recipient", "type": "felt"},
-      {"name": "amount", "type": "Uint256"}
-    ],
-    "outputs": [{"name": "success", "type": "felt"}],
-    "stateMutability": "external"
-  },
-  {
-    "name": "Transfer",
-    "type": "event",
-    "inputs": [
-      {"name": "from", "type": "felt"},
-      {"name": "to", "type": "felt"}, 
-      {"name": "value", "type": "Uint256"}
-    ]
-  }
-];
-
-// Custom StarkNet PayFi Contract ABI
-const starknetPayFiABI = [
-  {
-    "name": "send_payment",
-    "type": "function",
-    "inputs": [
-      {"name": "recipient", "type": "felt"},
-      {"name": "amount", "type": "Uint256"},
-      {"name": "token_address", "type": "felt"},
-      {"name": "memo", "type": "felt"}
-    ],
-    "outputs": [{"name": "payment_id", "type": "felt"}],
-    "stateMutability": "external"
-  },
-  {
-    "name": "PaymentSent",
-    "type": "event",
-    "inputs": [
-      {"name": "from", "type": "felt"},
-      {"name": "to", "type": "felt"},
-      {"name": "amount", "type": "Uint256"},
-      {"name": "payment_id", "type": "felt"}
-    ]
-  }
-];</code></pre>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">ABI Generation & Management</h3>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-bash"># Compile Cairo contract to get ABI
-starknet-compile contracts/payfi_vault.cairo \
-    --output build/payfi_vault.json \
-    --abi build/payfi_vault_abi.json
-
-# Alternative: Use scarb (recommended)
-scarb build
-# ABIs will be generated in target/dev/</code></pre>
-                            </div>
-
-                            <div class="mt-4 code-block">
-                                <pre><code class="language-javascript">// utils/abiLoader.js
-import payfiVaultABI from '../abis/payfi_vault_abi.json';
-import erc20ABI from '../abis/erc20_abi.json';
-import bridgeABI from '../abis/bridge_abi.json';
-
-export const CONTRACT_ABIS = {
-  PAYFI_VAULT: payfiVaultABI,
-  ERC20: erc20ABI, 
-  BRIDGE: bridgeABI
-};
-
-export const loadABI = (contractType) => {
-  return CONTRACT_ABIS[contractType];
-};
-
-// Dynamic ABI loading from network
-export const fetchABIFromNetwork = async (contractAddress) => {
-  try {
-    const response = await fetch(`https://api.starknet.io/contract/${contractAddress}/abi`);
-    return await response.json();
-  } catch (error) {
-    console.error('Failed to fetch ABI:', error);
-    return null;
-  }
-};</code></pre>
-                            </div>
-                        </div>
+            <section id="sdk-reference" class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-3xl font-bold mb-4">SDK & API Reference</h2>
+                <div class="space-y-6">
+                    <div class="border-l-4 border-yellow-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Core StarkNet & Cairo SDKs</h3>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://starknetjs.com/" target="_blank" class="text-blue-500 hover:underline">StarkNet.js</a>: Core JavaScript library for StarkNet interaction</li>
+                            <li><a href="https://foundry-rs.github.io/starknet-foundry/" target="_blank" class="text-blue-500 hover:underline">StarkNet Foundry</a>: Testing and deployment toolkit</li>
+                            <li><a href="https://docs.swmansion.com/scarb/" target="_blank" class="text-blue-500 hover:underline">Scarb</a>: Cairo package manager and build system</li>
+                            <li><a href="https://book.starkli.rs/" target="_blank" class="text-blue-500 hover:underline">Starkli</a>: Command-line tool for StarkNet operations</li>
+                            <li><a href="https://github.com/0xSpaceShard/starknet-devnet-rs" target="_blank" class="text-blue-500 hover:underline">StarkNet Devnet</a>: Local development network</li>
+                            <li><a href="https://book.cairo-lang.org/" target="_blank" class="text-blue-500 hover:underline">Cairo Book</a>: Official Cairo programming guide</li>
+                            <li><a href="https://docs.openzeppelin.com/contracts-cairo/" target="_blank" class="text-blue-500 hover:underline">OpenZeppelin Contracts for Cairo</a>: Secure smart contract library</li>
+                            <li><a href="https://cairo-by-example.com/" target="_blank" class="text-blue-500 hover:underline">Cairo by Example</a>: Practical Cairo examples</li>
+                        </ul>
                     </div>
-                </section>
 
-                <!-- Frontend Section -->
-                <section id="frontend" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Frontend Framework</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">React Native Setup</h3>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Core React Native components for mobile-first UX
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet
-} from 'react-native';
-
-// StarkNet PayFi custom hooks
-import { useWallet } from './hooks/useWallet';
-import { usePayments } from './hooks/usePayments';
-import { useDeFi } from './hooks/useDeFi';
-
-const PaymentScreen = () => {
-  const { wallet, connectWallet } = useWallet();
-  const { sendPayment, paymentHistory } = usePayments();
-  const { lendingPools, userPositions } = useDeFi();
-
-  return (
-    &lt;View style={styles.container}&gt;
-      {/* Payment UI components */}
-    &lt;/View&gt;
-  );
-};</code></pre>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Custom Hooks</h3>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// hooks/useWallet.js
-import { useState, useEffect } from 'react';
-import { connectWallet as connect } from '../utils/starknet';
-
-export const useWallet = () => {
-  const [wallet, setWallet] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-
-  const connectWallet = async () => {
-    try {
-      const walletInstance = await connect();
-      setWallet(walletInstance);
-      setIsConnected(true);
-    } catch (error) {
-      console.error('Wallet connection failed:', error);
-    }
-  };
-
-  return { wallet, isConnected, connectWallet };
-};</code></pre>
-                            </div>
-                        </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">💰 Payments & Financial SDKs</h3>
+                        <h4 class="font-medium mt-4">Core Payment SDKs (Project Specific)</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://docs.chipipay.com/sdk/nextjs/introduction" target="_blank" class="text-blue-500 hover:underline">Chipi Pay SDK</a>: Next.js integration for instant payments</li>
+                            <li><a href="https://www.npmjs.com/package/@atomiqlabs/sdk" target="_blank" class="text-blue-500 hover:underline">Atomiq Labs SDK</a>: Cross-chain swap functionality</li>
+                            <li><a href="https://docs.xverse.app/sats-connect" target="_blank" class="text-blue-500 hover:underline">Xverse Wallet</a>: Bitcoin integration via Sats Connect</li>
+                            <li><a href="https://docs.vesu.xyz/dev-guides/architecture" target="_blank" class="text-blue-500 hover:underline">Vesu Protocol</a>: Lending & borrowing architecture</li>
+                            <li><a href="https://docs.troves.fi/p" target="_blank" class="text-blue-500 hover:underline">Troves Finance</a>: Yield aggregation platform</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Traditional Payment Processors</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://stripe.com/docs/js" target="_blank" class="text-blue-500 hover:underline">Stripe</a>: Complete payments platform</li>
+                            <li><a href="https://developer.paypal.com/sdk/js/" target="_blank" class="text-blue-500 hover:underline">PayPal SDK</a>: PayPal integration</li>
+                            <li><a href="https://developer.squareup.com/docs/web-payments/overview" target="_blank" class="text-blue-500 hover:underline">Square Web SDK</a>: Square payments</li>
+                            <li><a href="https://docs.cloud.coinbase.com/commerce/docs" target="_blank" class="text-blue-500 hover:underline">Coinbase Commerce</a>: Crypto payments</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Banking & Finance APIs</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://plaid.com/docs/" target="_blank" class="text-blue-500 hover:underline">Plaid</a>: Banking and financial data</li>
+                            <li><a href="https://developer.yodlee.com/" target="_blank" class="text-blue-500 hover:underline">Yodlee</a>: Financial data aggregation</li>
+                            <li><a href="https://docs.dwolla.com/" target="_blank" class="text-blue-500 hover:underline">Dwolla</a>: Bank transfers and ACH payments</li>
+                        </ul>
                     </div>
-                </section>
 
-                <!-- Styling Section -->
-                <section id="styling" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">UI Components</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold mb-4">TailwindCSS + shadcn/ui</h3>
-                        
-                        <div class="code-block">
-                            <pre><code class="language-javascript">// Installation
-npm install tailwindcss @shadcn/ui
-
-// Component example
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-
-const PaymentCard = ({ amount, recipient }) => {
-  return (
-    &lt;Card className="w-full max-w-md mx-auto"&gt;
-      &lt;CardHeader&gt;
-        &lt;h3 className="text-lg font-semibold"&gt;Send Payment&lt;/h3&gt;
-      &lt;/CardHeader&gt;
-      &lt;CardContent&gt;
-        &lt;div className="space-y-4"&gt;
-          &lt;input
-            type="text"
-            placeholder="Recipient Address"
-            className="w-full p-2 border rounded"
-          /&gt;
-          &lt;input
-            type="number"
-            placeholder="Amount"
-            className="w-full p-2 border rounded"
-          /&gt;
-          &lt;Button className="w-full"&gt;Send Payment&lt;/Button&gt;
-        &lt;/div&gt;
-      &lt;/CardContent&gt;
-    &lt;/Card&gt;
-  );
-};</code></pre>
-                        </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">🔄 DeFi & Trading SDKs</h3>
+                        <h4 class="font-medium mt-4">DEX Aggregators</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://docs.1inch.io/" target="_blank" class="text-blue-500 hover:underline">1inch API</a>: Cross-chain swap aggregation</li>
+                            <li><a href="https://docs.0x.org/" target="_blank" class="text-blue-500 hover:underline">0x Protocol</a>: DEX aggregation and liquidity</li>
+                            <li><a href="https://developers.paraswap.network/" target="_blank" class="text-blue-500 hover:underline">Paraswap SDK</a>: Multi-DEX routing</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Yield & Staking Protocols</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://docs.lido.fi/" target="_blank" class="text-blue-500 hover:underline">Lido SDK</a>: Liquid staking protocols</li>
+                            <li><a href="https://docs.yearn.fi/" target="_blank" class="text-blue-500 hover:underline">Yearn Finance</a>: Yield optimization</li>
+                            <li><a href="https://docs.convexfinance.com/" target="_blank" class="text-blue-500 hover:underline">Convex Finance</a>: Boosted yield farming</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Price & Market Data</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://www.coingecko.com/en/api" target="_blank" class="text-blue-500 hover:underline">CoinGecko API</a>: Real-time price data</li>
+                            <li><a href="https://coinmarketcap.com/api/" target="_blank" class="text-blue-500 hover:underline">CoinMarketCap API</a>: Market data</li>
+                            <li><a href="https://docs.moralis.io/" target="_blank" class="text-blue-500 hover:underline">Moralis</a>: Multi-chain data APIs</li>
+                            <li><a href="https://thegraph.com/docs/" target="_blank" class="text-blue-500 hover:underline">The Graph Protocol</a>: Decentralized indexing</li>
+                        </ul>
                     </div>
-                </section>
 
-                <!-- Backend Section -->
-                <section id="backend" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Backend Integration</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold mb-4">API Routes (Next.js)</h3>
-                        
-                        <div class="code-block">
-                            <pre><code class="language-javascript">// pages/api/payments.js
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      // Process payment using SDKs
-      const result = await processPayment(req.body);
-      res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ error: 'Payment processing failed' });
-    }
-  }
-}
-
-// pages/api/defi/positions.js
-export default async function handler(req, res) {
-  try {
-    // Get user DeFi positions
-    const positions = await getUserDeFiPositions(req.query.address);
-    res.status(200).json(positions);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch positions' });
-  }
-}</code></pre>
-                        </div>
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">🔐 Wallet & Authentication SDKs</h3>
+                        <h4 class="font-medium mt-4">Multi-Wallet Support</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://docs.walletconnect.com/" target="_blank" class="text-blue-500 hover:underline">WalletConnect</a>: Universal wallet connection</li>
+                            <li><a href="https://docs.walletconnect.com/web3modal/nextjs/about" target="_blank" class="text-blue-500 hover:underline">Web3Modal</a>: Next.js wallet modal</li>
+                            <li><a href="https://docs.dynamic.xyz/" target="_blank" class="text-blue-500 hover:underline">Dynamic</a>: Multi-chain wallet integration</li>
+                            <li><a href="https://rainbowkit.com/" target="_blank" class="text-blue-500 hover:underline">RainbowKit</a>: React wallet connection library</li>
+                            <li><a href="https://wagmi.sh/" target="_blank" class="text-blue-500 hover:underline">Wagmi</a>: React hooks for Ethereum (works with StarkNet)</li>
+                            <li><a href="https://docs.family.co/connectkit" target="_blank" class="text-blue-500 hover:underline">ConnectKit</a>: Connect wallet UI for Next.js</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">StarkNet Specific Wallets</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://github.com/argentlabs/argent-x" target="_blank" class="text-blue-500 hover:underline">Argent X</a>: Browser extension wallet</li>
+                            <li><a href="https://braavos.app/developers/" target="_blank" class="text-blue-500 hover:underline">Braavos</a>: StarkNet wallet SDK</li>
+                            <li><a href="https://www.starknet.io/en/ecosystem/wallets" target="_blank" class="text-blue-500 hover:underline">Wallet SDK</a>: Official wallet integrations</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Web3 Authentication</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://docs.login.xyz/" target="_blank" class="text-blue-500 hover:underline">Sign-In with Ethereum</a>: Web3 authentication standard</li>
+                            <li><a href="https://docs.moralis.io/authentication-api/evm/how-it-works" target="_blank" class="text-blue-500 hover:underline">Moralis Auth</a>: Web3 user authentication</li>
+                            <li><a href="https://docs.magic.link/" target="_blank" class="text-blue-500 hover:underline">Magic</a>: Passwordless authentication for web3</li>
+                        </ul>
+                        <h4 class="font-medium mt-4">Traditional Authentication</h4>
+                        <ul class="list-disc list-inside space-y-1 text-gray-600">
+                            <li><a href="https://clerk.com/docs" target="_blank" class="text-blue-500 hover:underline">Clerk</a>: Complete user management for Next.js</li>
+                            <li><a href="https://auth0.com/docs" target="_blank" class="text-blue-500 hover:underline">Auth0</a>: Identity platform for web apps</li>
+                            <li><a href="https://supabase.com/docs/guides/auth" target="_blank" class="text-blue-500 hover:underline">Supabase Auth</a>: Open source Firebase alternative</li>
+                            <li><a href="https://docs.aws.amazon.com/cognito/" target="_blank" class="text-blue-500 hover:underline">AWS Cognito</a>: User identity and access management</li>
+                            <li><a href="https://next-auth.js.org/" target="_blank" class="text-blue-500 hover:underline">Next-Auth</a>: Authentication for Next.js</li>
+                        </ul>
                     </div>
-                </section>
 
-                <!-- Database Section -->
-                <section id="database" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Data Management</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <h3 class="text-xl font-semibold mb-4">Supabase Integration</h3>
-                        
-                        <div class="code-block">
-                            <pre><code class="language-javascript">// utils/database.js
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  'your-supabase-url',
-  'your-supabase-anon-key'
-);
-
-// Store user preferences
-export const saveUserPreferences = async (userId, preferences) => {
-  const { data, error } = await supabase
-    .from('user_preferences')
-    .upsert({ user_id: userId, ...preferences });
-  
-  return { data, error };
-};
-
-// Get transaction history
-export const getTransactionHistory = async (userAddress) => {
-  const { data, error } = await supabase
-    .from('transactions')
-    .select('*')
-    .eq('user_address', userAddress)
-    .order('created_at', { ascending: false });
-  
-  return { data, error };
-};</code></pre>
-                        </div>
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">🌉 Cross-Chain & Bridge</h3>
+                        <p class="text-gray-600">
+                            The full documentation for Cross-Chain & Bridge is available below.
+                        </p>
                     </div>
-                </section>
-
-                <!-- Development Tools Section -->
-                <section id="devtools" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Development Tools</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3">Testing</h3>
-                                <ul class="space-y-2 text-sm text-gray-600">
-                                    <li>• <strong>Postman</strong>: API testing and debugging</li>
-                                    <li>• <strong>Jest/React Native Testing Library</strong>: Unit and integration tests</li>
-                                    <li>• <strong>Starknet-devnet</strong>: Local blockchain testing</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3">Deployment</h3>
-                                <ul class="space-y-2 text-sm text-gray-600">
-                                    <li>• <strong>GitHub Actions</strong>: CI/CD pipeline</li>
-                                    <li>• <strong>Docker</strong>: Containerized services</li>
-                                    <li>• <strong>Netlify</strong>: Frontend deployment</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3">Monitoring</h3>
-                                <ul class="space-y-2 text-sm text-gray-600">
-                                    <li>• <strong>Sentry</strong>: Error tracking</li>
-                                    <li>• <strong>Analytics</strong>: User behavior tracking</li>
-                                    <li>• <strong>Performance</strong>: App performance monitoring</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Security Section -->
-                <section id="security" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Security Considerations</h2>
-                    
-                    <div class="bg-white rounded-lg shadow-sm p-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3 text-red-600">❌ Never Do</h3>
-                                <ul class="space-y-2 text-sm text-gray-700">
-                                    <li>• Store private keys in frontend code</li>
-                                    <li>• Expose API keys in client-side code</li>
-                                    <li>• Skip input validation</li>
-                                    <li>• Use HTTP for sensitive operations</li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3 text-green-600">✅ Always Do</h3>
-                                <ul class="space-y-2 text-sm text-gray-700">
-                                    <li>• Implement proper rate limiting</li>
-                                    <li>• Validate all user inputs</li>
-                                    <li>• Use HTTPS for all communications</li>
-                                    <li>• Regular security audits of smart contracts</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Getting Started Section -->
-                <section id="getting-started" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Getting Started</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Quick Start Guide</h3>
-                            <ol class="list-decimal list-inside space-y-3 text-gray-700">
-                                <li>Clone the repository from the hackathon submission</li>
-                                <li>Install dependencies: <code class="bg-gray-100 px-2 py-1 rounded text-sm">npm install</code></li>
-                                <li>Set up environment variables (see .env.example)</li>
-                                <li>Configure SDK credentials for each service</li>
-                                <li>Run the development server: <code class="bg-gray-100 px-2 py-1 rounded text-sm">npm run dev</code></li>
-                            </ol>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-                            <h3 class="text-xl font-semibold mb-4 text-gray-900">🚀 Support & Resources</h3>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-2">Official Documentation</h4>
-                                    <ul class="text-blue-700 space-y-1 text-sm">
-                                        <li>• <a href="https://docs.starknet.io" target="_blank" rel="noopener noreferrer" class="hover:underline">StarkNet Documentation</a></li>
-                                        <li>• <a href="https://docs.chipipay.com/sdk/nextjs/introduction" target="_blank" rel="noopener noreferrer" class="hover:underline">Chipi Pay SDK</a></li>
-                                        <li>• <a href="https://docs.vesu.xyz/dev-guides/architecture" target="_blank" rel="noopener noreferrer" class="hover:underline">Vesu Protocol</a></li>
-                                        <li>• <a href="https://docs.troves.fi/p" target="_blank" rel="noopener noreferrer" class="hover:underline">Troves Finance</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-2">Community & Support</h4>
-                                    <ul class="text-blue-700 space-y-1 text-sm">
-                                        <li>• <a href="https://docs.xverse.app/sats-connect" target="_blank" rel="noopener noreferrer" class="hover:underline">Xverse Sats Connect</a></li>
-                                        <li>• <a href="https://www.npmjs.com/package/@atomiqlabs/sdk" target="_blank" rel="noopener noreferrer" class="hover:underline">Atomiq Labs SDK</a></li>
-                                        <li>• <a href="https://resolve-starknet.devpost.com/" target="_blank" rel="noopener noreferrer" class="hover:underline">Hackathon Submission</a></li>
-                                        <li>• <a href="https://docs.google.com/spreadsheets/d/1iyv7mRAMZmJuge78rST_h3tK8mVl74gkijVeCuCa_Cs/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="hover:underline">Project Roadmap</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4 p-4 bg-white rounded-lg border border-blue-200">
-                                <p class="text-sm text-gray-600">
-                                    <strong>📱 Mobile-First Development:</strong> This project prioritizes mobile user experience with React Native and responsive design patterns. All integrations are optimized for mobile wallet interactions and touch-based interfaces.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script>
-        // Mobile sidebar functionality
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            sidebar.classList.add('open');
-            overlay.classList.add('show');
-        }
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
 
-        function closeSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            sidebar.classList.remove('open');
-            overlay.classList.remove('show');
-        }
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
 
-        // Navigation functionality
-        function handleNavClick(event) {
-            event.preventDefault();
-            
-            const link = event.target;
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('.section');
-            
-            // Remove active class from all links and sections
-            navLinks.forEach(l => l.classList.remove('active'));
-            sections.forEach(s => s.classList.remove('active'));
-            
-            // Add active class to clicked link
-            link.classList.add('active');
-            
-            // Show corresponding section
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-            
-            // Close sidebar on mobile after navigation
-            if (window.innerWidth < 1024) {
-                closeSidebar();
-            }
-        }
+        // Close sidebar on link click on mobile
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
 
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set initial active state
-            document.querySelector('a[href="#overview"]').classList.add('active');
-            
-            // Initialize Prism.js for syntax highlighting
-            if (typeof Prism !== 'undefined') {
-                Prism.highlightAll();
+        // Hide sidebar on outside click on mobile
+        document.addEventListener('click', (event) => {
+            if (window.innerWidth < 768) {
+                const isClickInsideSidebar = sidebar.contains(event.target);
+                const isClickOnMenuButton = menuButton.contains(event.target);
+
+                if (!isClickInsideSidebar && !isClickOnMenuButton && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
             }
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 1024) {
-                    closeSidebar();
+        });
+
+        // Function to scroll to the target section with an offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const topOffset = targetElement.getBoundingClientRect().top + window.scrollY - 20; // 20px offset
+                    window.scrollTo({
+                        top: topOffset,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
     </script>
 </body>
 </html>
-  } catch (error) {
-    console.error('Payment failed:', error);
-  }
-};
-
-// Payment Status
-const checkPaymentStatus = async (transactionId) => {
-  return await chipiPay.getTransactionStatus(transactionId);
-};</code></pre>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Atomiq SDK (Cross-Chain Swaps)</h3>
-                            <p class="text-gray-600 mb-4">BTC ↔ STRK/ETH seamless swapping</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Installation
-npm install @atomiqlabs/sdk
-
-// Setup
-import { AtomiqSDK } from '@atomiqlabs/sdk';
-
-const atomiqSwap = new AtomiqSDK({
-  starknetProvider: starknetProvider,
-  bitcoinProvider: bitcoinProvider
-});
-
-// Cross-chain swap
-const performSwap = async (fromToken, toToken, amount) => {
-  const quote = await atomiqSwap.getQuote({
-    from: fromToken,
-    to: toToken,
-    amount: amount
-  });
-  
-  const swap = await atomiqSwap.executeSwap(quote);
-  return swap;
-};</code></pre>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Xverse Wallet Integration</h3>
-                            <p class="text-gray-600 mb-4">Bitcoin payment acceptance via Sats Connect</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Installation
-npm install sats-connect
-
-// Setup
-import { request } from 'sats-connect';
-
-// Connect to Xverse wallet
-const connectXverse = async () => {
-  try {
-    await request('wallet_requestPermissions', null);
-    const accounts = await request('getAccounts', null);
-    return accounts;
-  } catch (error) {
-    console.error('Xverse connection failed:', error);
-  }
-};
-
-// Accept Bitcoin payments
-const acceptBitcoinPayment = async (amount, merchantAddress) => {
-  try {
-    const response = await request('sendTransfer', {
-      recipients: [
-        {
-          address: merchantAddress,
-          amount: amount
-        }
-      ]
-    });
-    
-    return response;
-  } catch (error) {
-    console.error('Bitcoin payment failed:', error);
-  }
-};</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- DeFi Section -->
-                <section id="defi" class="section">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">DeFi Layer</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Vesu Protocol (Lending & Borrowing)</h3>
-                            <p class="text-gray-600 mb-4">Integrated on-chain credit access</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Installation
-npm install @vesu/protocol-sdk
-
-// Setup
-import { VesuSDK } from '@vesu/protocol-sdk';
-
-const vesuProtocol = new VesuSDK({
-  starknetProvider: provider,
-  contractAddress: 'vesu_contract_address'
-});
-
-// Lending
-const lendAssets = async (asset, amount) => {
-  const transaction = await vesuProtocol.supply({
-    asset: asset,
-    amount: amount,
-    onBehalfOf: userAddress
-  });
-  
-  return transaction;
-};
-
-// Borrowing
-const borrowAssets = async (asset, amount) => {
-  const transaction = await vesuProtocol.borrow({
-    asset: asset,
-    amount: amount,
-    interestRateMode: 1, // 1 for stable, 2 for variable
-    referralCode: 0,
-    onBehalfOf: userAddress
-  });
-  
-  return transaction;
-};
-
-// Get user account data
-const getUserAccountData = async (userAddress) => {
-  return await vesuProtocol.getUserAccountData(userAddress);
-};</code></pre>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow-sm p-6">
-                            <h3 class="text-xl font-semibold mb-4">Trove Finance (Yield Aggregation)</h3>
-                            <p class="text-gray-600 mb-4">Liquid staking and yield opportunities</p>
-                            
-                            <div class="code-block">
-                                <pre><code class="language-javascript">// Installation
-npm install @trove/yield-sdk
-
-// Setup
-import { TroveYieldSDK } from '@trove/yield-sdk';
-
-const troveYield = new TroveYieldSDK({
-  apiEndpoint: 'https://api.troves.fi',
-  starknetProvider: provider
-});
-
-// Get available pools
-const getYieldPools = async () => {
-  return await troveYield.getPools();
-};
-
-// Stake in yield pool
-const stakeInPool = async (poolId, amount) => {
-  const transaction = await troveYield.stake({
-    poolId: poolId,
-    amount: amount,
-    userAddress: userAddress
-  });
-  
-  return transaction;
