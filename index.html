@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarkNet PayFi SDK Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .sidebar-scroll { 
+            scrollbar-width: thin; 
+            scrollbar-color: #4f46e5 #f1f5f9;
+        }
+        .sidebar-scroll::-webkit-scrollbar { 
+            width: 6px; 
+        }
+        .sidebar-scroll::-webkit-scrollbar-track { 
+            background: #f1f5f9; 
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb { 
+            background: #4f46e5; 
+            border-radius: 3px; 
+        }
+        .code-block {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0.5rem;
+        }
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover {
+            background-color: #e0e7ff;
+            transform: translateX(4px);
+        }
+        .nav-link.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-80 bg-white shadow-xl border-r border-gray-200 flex flex-col">
+            <div class="p-6 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-900">StarkNet PayFi</h1>
+                <p class="text-sm text-gray-600 mt-1">SDK Documentation</p>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto sidebar-scroll p-4">
+                <ul class="space-y-2">
+                    <li><a href="#overview" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Overview</a></li>
+                    <li><a href="#payments" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Payments Layer</a></li>
+                    <li><a href="#defi" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">DeFi Layer</a></li>
+                    <li><a href="#starknet" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">StarkNet Integration</a></li>
+                    <li><a href="#abis" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">ABIs & Contracts</a></li>
+                    <li><a href="#frontend" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Frontend Framework</a></li>
+                    <li><a href="#styling" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">UI Components</a></li>
+                    <li><a href="#backend" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Backend Integration</a></li>
+                    <li><a href="#database" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Data Management</a></li>
+                    <li><a href="#devtools" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Development Tools</a></li>
+                    <li><a href="#security" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Security</a></li>
+                    <li><a href="#getting-started" class="nav-link block p-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100">Getting Started</a></li>
+                </ul>
+            </nav>
+            
+            <div class="p-4 border-t border-gray-200">
+                <p class="text-xs text-gray-500">Last updated: Sept 2025</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="max-w-4xl mx-auto p-8">
+                
+                <!-- Overview Section -->
+                <section id="overview" class="section active">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Overview</h2>
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <p class="text-gray-700 mb-4">This documentation provides frontend developers with the necessary SDK references and implementation guides for building the StarkNet PayFi mobile application. The app combines seamless peer-to-peer payments, merchant tools, and integrated DeFi services.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-blue-900">Payments</h4>
+                                <p class="text-blue-700 text-sm">Instant wallet-to-wallet transactions with cross-chain support</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-green-900">DeFi</h4>
+                                <p class="text-green-700 text-sm">Lending, borrowing, and yield farming integration</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-purple-900">Mobile-First</h4>
+                                <p class="text-purple-700 text-sm">React Native with modern UI components</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payments Section -->
+                <section id="payments" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Payments Layer</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h3 class="text-xl font-semibold mb-4">Chipi Pay SDK</h3>
+                            <p class="text-gray-600 mb-4">Enables instant wallet-to-wallet transactions</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-javascript">// Installation
+npm install @chipi/pay-sdk
+
+// Basic Setup
+import { ChipiPaySDK } from '@chipi/pay-sdk';
+
+const chipiPay = new ChipiPaySDK({
+  apiKey: 'your-api-key',
+  network: 'mainnet', // or 'testnet'
+  environment: 'production'
+});
+
+// Send Payment
+const sendPayment = async (recipientAddress, amount, token) => {
+  try {
+    const transaction = await chipiPay.sendPayment({
+      to: recipientAddress,
+      amount: amount,
+      token: token,
+      memo: 'Payment via StarkNet PayFi'
+    });
+    return transaction;
+  } catch (error) {
+    console.error('Payment failed:', error);
+  }
+};
+
+// Payment Status
+const checkPaymentStatus = async (transactionId) => {
+  return await chipiPay.getTransactionStatus(transactionId);
+};</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h3 class="text-xl font-semibold mb-4">Atomiq SDK (Cross-Chain Swaps)</h3>
+                            <p class="text-gray-600 mb-4">BTC ↔ STRK/ETH seamless swapping</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-javascript">// Installation
+npm install @atomiq/swap-sdk
+
+// Setup
+import { AtomiqSDK } from '@atomiq/swap-sdk';
+
+const atomiqSwap = new AtomiqSDK({
+  starknetProvider: starknetProvider,
+  bitcoinProvider: bitcoinProvider
+});
+
+// Cross-chain swap
+const performSwap = async (fromToken, toToken, amount) => {
+  const quote = await atomiqSwap.getQuote({
+    from: fromToken,
+    to: toToken,
+    amount: amount
+  });
+  
+  const swap = await atomiqSwap.executeSwap(quote);
+  return swap;
+};</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DeFi Section -->
+                <section id="defi" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">DeFi Layer</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h3 class="text-xl font-semibold mb-4">Vesu SDK (Lending & Borrowing)</h3>
+                            <p class="text-gray-600 mb-4">Integrated on-chain credit access</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-javascript">// Installation
+npm install @vesu/protocol-sdk
+
+// Setup
+import { VesuSDK } from '@vesu/protocol-sdk';
+
+const vesuProtocol = new VesuSDK({
+  starknetProvider: provider,
+  contractAddress: 'vesu_contract_address'
+});
+
+// Lending
+const lendAssets = async (asset, amount) => {
+  const transaction = await vesuProtocol.supply({
+    asset: asset,
+    amount: amount,
+    onBehalfOf: userAddress
+  });
+  
+  return transaction;
+};
+
+// Borrowing
+const borrowAssets = async (asset, amount) => {
+  const transaction = await vesuProtocol.borrow({
+    asset: asset,
+    amount: amount,
+    interestRateMode: 1, // 1 for stable, 2 for variable
+    referralCode: 0,
+    onBehalfOf: userAddress
+  });
+  
+  return transaction;
+};</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABIs Section -->
+                <section id="abis" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">ABIs & Smart Contracts</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h3 class="text-xl font-semibold mb-4">Contract ABIs</h3>
+                            <p class="text-gray-600 mb-4">Application Binary Interfaces for smart contract interaction</p>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-javascript">// ERC20 Token Contract ABI Example
+const erc20ABI = [
+  {
+    "name": "balanceOf",
+    "type": "function", 
+    "inputs": [{"name": "account", "type": "felt"}],
+    "outputs": [{"name": "balance", "type": "Uint256"}],
+    "stateMutability": "view"
+  },
+  {
+    "name": "transfer",
+    "type": "function",
+    "inputs": [
+      {"name": "recipient", "type": "felt"},
+      {"name": "amount", "type": "Uint256"}
+    ],
+    "outputs": [{"name": "success", "type": "felt"}],
+    "stateMutability": "external"
+  },
+  {
+    "name": "Transfer",
+    "type": "event",
+    "inputs": [
+      {"name": "from", "type": "felt"},
+      {"name": "to", "type": "felt"}, 
+      {"name": "value", "type": "Uint256"}
+    ]
+  }
+];
+
+// Custom StarkNet PayFi Contract ABI
+const starknetPayFiABI = [
+  {
+    "name": "send_payment",
+    "type": "function",
+    "inputs": [
+      {"name": "recipient", "type": "felt"},
+      {"name": "amount", "type": "Uint256"},
+      {"name": "token_address", "type": "felt"},
+      {"name": "memo", "type": "felt"}
+    ],
+    "outputs": [{"name": "payment_id", "type": "felt"}],
+    "stateMutability": "external"
+  },
+  {
+    "name": "PaymentSent",
+    "type": "event",
+    "inputs": [
+      {"name": "from", "type": "felt"},
+      {"name": "to", "type": "felt"},
+      {"name": "amount", "type": "Uint256"},
+      {"name": "payment_id", "type": "felt"}
+    ]
+  }
+];</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-sm p-6">
+                            <h3 class="text-xl font-semibold mb-4">ABI Generation</h3>
+                            
+                            <div class="code-block">
+                                <pre><code class="language-bash"># Compile Cairo contract to get ABI
+starknet-compile contracts/payfi_vault.cairo \
+    --output build/payfi_vault.json \
+    --abi build/payfi_vault_abi.json
+
+# Alternative: Use scarb (recommended)
+scarb build
+# ABIs will be generated in target/dev/</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- StarkNet Section -->
+                <section id="starknet" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">StarkNet Integration</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4">StarkNet.js</h3>
+                        <p class="text-gray-600 mb-4">Core blockchain interactions</p>
+                        
+                        <div class="code-block">
+                            <pre><code class="language-javascript">// Installation
+npm install starknet
+
+// Setup
+import { Account, Contract, Provider, constants } from 'starknet';
+
+const provider = new Provider({
+  sequencer: { network: constants.NetworkName.SN_MAIN }
+});
+
+// Account setup
+const account = new Account(provider, accountAddress, privateKey);
+
+// Smart Contract Interaction with ABI
+const tokenContract = new Contract(erc20ABI, tokenContractAddress, provider);
+const payfiContract = new Contract(starknetPayFiABI, payfiContractAddress, provider);
+
+// Read contract state using ABI
+const getBalance = async (userAddress) => {
+  const balance = await tokenContract.balanceOf(userAddress);
+  return balance;
+};
+
+// Write to contract using ABI
+const sendPayment = async (recipient, amount, tokenAddress, memo) => {
+  const contractWithAccount = payfiContract.connect(account);
+  
+  const transaction = await contractWithAccount.send_payment(
+    recipient, 
+    amount, 
+    tokenAddress, 
+    memo
+  );
+  
+  return transaction;
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Frontend Section -->
+                <section id="frontend" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Frontend Framework</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4">React Native Setup</h3>
+                        
+                        <div class="code-block">
+                            <pre><code class="language-javascript">// Core React Native components for mobile-first UX
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet
+} from 'react-native';
+
+// StarkNet PayFi custom hooks
+import { useWallet } from './hooks/useWallet';
+import { usePayments } from './hooks/usePayments';
+import { useDeFi } from './hooks/useDeFi';
+
+const PaymentScreen = () => {
+  const { wallet, connectWallet } = useWallet();
+  const { sendPayment, paymentHistory } = usePayments();
+  const { lendingPools, userPositions } = useDeFi();
+
+  return (
+    &lt;View style={styles.container}&gt;
+      {/* Payment UI components */}
+    &lt;/View&gt;
+  );
+};</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Getting Started Section -->
+                <section id="getting-started" class="section">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Getting Started</h2>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                            <li>Clone the repository</li>
+                            <li>Install dependencies: <code class="bg-gray-100 px-2 py-1 rounded">npm install</code></li>
+                            <li>Set up environment variables</li>
+                            <li>Configure SDK credentials</li>
+                            <li>Run the development server: <code class="bg-gray-100 px-2 py-1 rounded">npm run dev</code></li>
+                        </ol>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <h4 class="font-semibold text-blue-900 mb-2">Support & Resources</h4>
+                            <ul class="text-blue-700 space-y-1">
+                                <li>• StarkNet Documentation: <a href="https://docs.starknet.io" class="underline">https://docs.starknet.io</a></li>
+                                <li>• Chipi Pay SDK Docs: [SDK documentation link]</li>
+                                <li>• Vesu Protocol Docs: [Protocol documentation link]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            // Initialize Prism.js for syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+    </script>
+</body>
+</html>
